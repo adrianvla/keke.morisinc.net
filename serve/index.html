@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download</title>
+    <script type="text/javascript"
+        src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=TiLxArHju2GFiKv4ZZqOQh9xsJAFOf_4m6sbX_IFoza9LYPfkZjSfJyFKp9GVW1q8EOFm0R3TvanDc8dv7Bgnw"
+        charset="UTF-8"></script>
+    <script src="/cdn-cgi/apps/head/ZZ0kTCiyEGcqMbIylwQAxIc-BtI.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <style>
+        .decoder {
+            position: absolute;
+        }
+
+        body {
+            margin: 0;
+            background: #333;
+        }
+
+        .c {
+
+            /* display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 20px 20px;
+            grid-template-areas:
+                ". . ."
+                ". . ."
+                ". . ."; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .download {
+            border: 5px solid #000;
+            background: #000;
+            padding: 10px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            color: #eee;
+            transition: all ease-out 0.3s;
+            cursor: pointer;
+        }
+
+        .download>div {
+            font-family: Helvetica;
+            font-size: 2rem;
+        }
+
+        .download:hover {
+            background: #333;
+            color: #fff;
+            transform: scale(1.3)
+        }
+
+        .o {
+            opacity: 0.5;
+            cursor: not-allowed !important;
+        }
+
+        .decoder {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe class="decoder" width="1000" height="800"></iframe>
+    <div class="c">
+        <div class="download o">
+            <div id="z">Please Wait</div>
+        </div>
+    </div>
+                
+    <script>
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        //https://api.codetabs.com/v1/proxy?quest=
+        fetch(`https://api.codetabs.com/v1/proxy?quest=${getUrlParameter("w")}`)
+            .then(response => response.text())
+            .then(d => {
+                //$($('.decoder')[0].contentWindow).html(d);
+                document.querySelector('.decoder').contentWindow.document.body.innerHTML = d;
+                setTimeout(() => {
+                    $('#z').text(`Download`);
+                    $('.download').removeClass(`o`);
+                    $('.download').on('click', () => {
+                        try {
+                            window.location.href = document.querySelector('.decoder').contentWindow
+                                .document.querySelector(".input.popsok").href;
+                        } catch (e) {
+                            window.location.href = getUrlParameter("w");
+                        }
+                    });
+                }, 100);
+            });
+    </script>
+</body>
+
+</html>
