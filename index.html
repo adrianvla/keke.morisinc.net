@@ -151,9 +151,9 @@
         }
 
 
-        window.addEventListener('message', function (e) {
-            ProcessChildMessage_2(e.data); // e.data hold the message
-        }, false);
+        //window.addEventListener('message', function (e) {
+        //    ProcessChildMessage_2(e.data); // e.data hold the message
+        //}, false);
 
         function ProcessChildMessage_2(message) {
             content.innerHTML = read("paymentcomplete.html");
